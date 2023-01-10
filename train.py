@@ -20,10 +20,10 @@ model.add(Dense(units=128, input_shape=images.shape[1:], activation='relu'))
 model.add(Dense(units=128, input_shape=images.shape[1:], activation='relu'))
 
 
-model.add(Dense(units=3, activation='softmax'))
+model.add(Dense(units=3, activation='sigmoid'))
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(images, labels, epochs=5, validation_split=0.1, batch_size= 32)
+model.fit(images, labels, epochs=10, validation_split=0.1, batch_size=64)
 
 model.save('model.h5')
