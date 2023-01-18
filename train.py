@@ -1,7 +1,16 @@
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 import pickle
+import os
 
+os.environ["KERAS_BACKEND"] = "tensorflow"
+
+gpus = tf.config.experimental.list_physical_devices('GPU')
+print(gpus)
+
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
 
 images = pickle.load(open('images.pkl', 'rb'))
 labels = pickle.load(open('labels.pkl', 'rb'))
@@ -24,6 +33,6 @@ model.add(Dense(units=3, activation='sigmoid'))
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(images, labels, epochs=10, validation_split=0.1, batch_size=64)
+model.fit(images, labels, epochs=10, validation_split=0.1, batch_size=32)
 
 model.save('model.h5')

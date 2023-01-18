@@ -16,7 +16,7 @@ for category in animals:
         img_path = os.path.join(path, img)
         label = animals.index(category)
         arr = cv2.imread(img_path)
-        new_arr = cv2.resize(arr, (150, 150))
+        new_arr = cv2.resize(arr, (100, 100))
         data.append([new_arr, label])
 
 random.shuffle(data)
